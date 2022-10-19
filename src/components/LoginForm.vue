@@ -1,36 +1,82 @@
 <script>
-export default {};
+export default {
+  data: () => ({
+    email: "",
+    password: "",
+    passwordBorderColor: "#1a1c22",
+    emailBorderColor: "#1a1c22",
+  }),
+  methods: {
+    formValidation() {
+      if (
+        this.$store.state.defaultEmail === this.email &&
+        this.$store.state.defaultPassword === this.password
+      ) {
+        this.$store.state.logged = true; // not sure
+        this.$router.push({ name: "profile" });
+        this.emailBorderColor = "#1a1c22";
+        this.passwordBorderColor = "#1a1c22";
+      } else {
+        if (this.$store.state.defaultEmail !== this.email) {
+          this.emailBorderColor = "red";
+        } else {
+          this.emailBorderColor = "#1a1c22";
+        }
+
+        if (this.$store.state.defaultPassword !== this.password) {
+          this.passwordBorderColor = "red";
+        } else {
+          this.passwordBorderColor = "#1a1c22";
+        }
+      }
+    },
+  },
+};
 </script>
 
 <template>
   <div class="wrapper">
-    <div class="login__block">
+    <div class="login__block" @keyup.enter="formValidation">
       <div class="form__title">Log In</div>
       <div class="email__block">
+        <fa icon="fa-solid fa-at" class="form__icon" />
         <input
+          v-model="email"
           type="text"
           name="email"
           placeholder="Your Email"
           class="login__input"
           id="login__email"
+          :style="{ border: '1px' + ' solid ' + this.emailBorderColor }"
         />
       </div>
       <div class="password__block">
+        <fa icon="fa-solid fa-lock" class="form__icon" />
         <input
+          v-model="password"
           type="password"
           name="password"
           placeholder="Your Password"
           class="login__input"
           id="login__password"
+          :style="{ border: '1px' + ' solid ' + this.passwordBorderColor }"
         />
       </div>
-      <button class="submit" id="login__submit">SUBMIT</button>
+      <button class="submit" id="login__submit" @click="formValidation">
+        SUBMIT
+      </button>
       <a href="#" class="forgot-pass">Forgot your password?</a>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+* {
+  color: #b7b9c2;
+  transition: 0.2s all ease;
+}
 .wrapper {
   display: flex;
   justify-content: center;
@@ -48,18 +94,25 @@ export default {};
     align-items: center;
     width: 420px;
     height: 420px;
-    color: #b7b9c2;
+    padding: 0px 33px;
     .email__block,
     .password__block {
-      width: 80%;
+      width: 100%;
       position: relative;
+      .form__icon {
+        position: absolute;
+        left: 15px;
+        top: 20px;
+        font-size: 21px;
+        color: #fbe59a;
+      }
       input {
         font-size: 18px;
         border: 1px solid #1a1c22;
         border-radius: 4px;
         background: #1a1c22;
         margin: 7px 0px;
-        padding: 12px 15px 12px 45px;
+        padding: 12px 12px 12px 45px;
         outline: none;
         box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
         width: 100%;

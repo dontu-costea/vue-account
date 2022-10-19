@@ -1,19 +1,16 @@
 <script>
-import LoginForm from "@/components/LoginForm.vue";
-import ProfilePage from "@/components/ProfilePage.vue";
-
 export default {
-  components: {
-    LoginForm,
-    ProfilePage,
+  mounted() {
+    if (!this.$store.state.logged) {
+      this.$router.push({ name: "mainPage" });
+    }
   },
 };
 </script>
 
 <template>
   <div>
-    <login-form />
-    <profile-page />
+    <router-view></router-view>
   </div>
 </template>
 
@@ -21,5 +18,7 @@ export default {
 * {
   margin: 0px;
   padding: 0px;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }
 </style>
