@@ -12,7 +12,7 @@ export default {
         this.$store.state.defaultEmail === this.email &&
         this.$store.state.defaultPassword === this.password
       ) {
-        this.$store.state.logged = true; // not sure
+        this.loggedStatus(); // not sure
         this.$router.push({ name: "profile" });
         this.emailBorderColor = "#1a1c22";
         this.passwordBorderColor = "#1a1c22";
@@ -29,6 +29,9 @@ export default {
           this.passwordBorderColor = "#1a1c22";
         }
       }
+    },
+    loggedStatus() {
+      this.$store.commit("loggedStatus", true);
     },
   },
 };

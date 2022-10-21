@@ -4,9 +4,9 @@ export default {
     newPassword: "",
   }),
   methods: {
-    /*changePassword() {
-      this.$store.state.defaultPassword = this.newPassword;
-    },*/
+    changePassword() {
+      this.$store.commit("changePassword", this.newPassword);
+    },
   },
 };
 </script>
@@ -14,12 +14,7 @@ export default {
 <template>
   <div>
     <input v-model="newPassword" type="text" />
-    <button
-      type="submit"
-      @click="this.$store.mutations.changePassword(this.newPassword)"
-    >
-      Save
-    </button>
+    <button type="submit" @click="changePassword">Save</button>
     <button type="submit">Change password</button>
   </div>
 </template>
